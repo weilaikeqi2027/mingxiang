@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古风冥想静心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .poem-card {
+            text-align: center;
+        }
+
+        .poem-text {
+            font-size: 24px;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .poem-author {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .meditation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .meditation-item {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .meditation-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .meditation-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+
+        .meditation-emoji {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .meditation-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .meditation-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .option-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            flex: 1;
+            min-width: 70px;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: #667eea;
+        }
+
+        .option-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+
+        .music-btn {
+            flex: 1;
+            min-width: 80px;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            border-color: #667eea;
+        }
+
+        .music-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+
+        .music-icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .music-name {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .volume-control {
+            margin-top: 20px;
+        }
+
+        .volume-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .volume-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card poem-card">
+            <div class="poem-text">静坐无所为，春来草自青。</div>
+            <div class="poem-author">——仓央嘉措</div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">选择冥想类型</div>
+            <div class="meditation-grid">
+                <div class="meditation-item" data-type="focus">
+                    <div class="meditation-emoji">🧘</div>
+                    <div class="meditation-name">专注冥想</div>
+                    <div class="meditation-desc">提升专注力</div>
+                </div>
+                <div class="meditation-item" data-type="relax">
+                    <div class="meditation-emoji">🌸</div>
+                    <div class="meditation-name">放松冥想</div>
+                    <div class="meditation-desc">释放压力</div>
+                </div>
+                <div class="meditation-item" data-type="sleep">
+                    <div class="meditation-emoji">🌙</div>
+                    <div class="meditation-name">睡眠冥想</div>
+                    <div class="meditation-desc">安然入眠</div>
+                </div>
+                <div class="meditation-item" data-type="gratitude">
+                    <div class="meditation-emoji">🙏</div>
+                    <div class="meditation-name">感恩冥想</div>
+                    <div class="meditation-desc">心怀感恩</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">选择时长</div>
+            <div class="option-group">
+                <div class="option-btn" data-duration="5">5分钟</div>
+                <div class="option-btn active" data-duration="10">10分钟</div>
+                <div class="option-btn" data-duration="15">15分钟</div>
+                <div class="option-btn" data-duration="20">20分钟</div>
+                <div class="option-btn" data-duration="30">30分钟</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">选择背景音乐</div>
+            <div class="option-group">
+                <div class="music-btn active" data-music="silent">
+                    <div class="music-icon">🔇</div>
+                    <div class="music-name">静音</div>
+                </div>
+                <div class="music-btn" data-music="rain">
+                    <div class="music-icon">🌧️</div>
+                    <div class="music-name">雨声</div>
+                </div>
+                <div class="music-btn" data-music="forest">
+                    <div class="music-icon">🌲</div>
+                    <div class="music-name">森林</div>
+                </div>
+                <div class="music-btn" data-music="wave">
+                    <div class="music-icon">🌊</div>
+                    <div class="music-name">海浪</div>
+                </div>
+                <div class="music-btn" data-music="fire">
+                    <div class="music-icon">🔥</div>
+                    <div class="music-name">篝火</div>
+                </div>
+            </div>
+            <div class="volume-control">
+                <div class="volume-label">音量调节</div>
+                <input type="range" class="volume-slider" min="0" max="100" value="70">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let audioCtx = null;
+        let masterGainNode = null;
+        let currentSource = null;
+        let currentFilter = null;
+        let isPlaying = false;
+        let isInitialized = false;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                masterGainNode = audioCtx.createGain();
+                masterGainNode.connect(audioCtx.destination);
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function stopCurrentSource() {
+            if (currentSource) {
+                try {
+                    currentSource.stop();
+                } catch(e) {}
+                try {
+                    currentSource.disconnect();
+                } catch(e) {}
+                currentSource = null;
+            }
+            if (currentFilter) {
+                try {
+                    currentFilter.disconnect();
+                } catch(e) {}
+                currentFilter = null;
+            }
+        }
+
+        function createWhiteNoise() {
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+            return source;
+        }
+
+        function playMusic(type, volume) {
+            stopCurrentSource();
+            
+            if (type === 'silent') {
+                masterGainNode.gain.value = 0;
+                isPlaying = false;
+                return;
+            }
+
+            initAudio();
+            masterGainNode.gain.value = volume / 100;
+
+            currentFilter = audioCtx.createBiquadFilter();
+            
+            switch(type) {
+                case 'rain':
+                    currentFilter.type = 'lowpass';
+                    currentFilter.frequency.value = 1000;
+                    break;
+                case 'forest':
+                    currentFilter.type = 'bandpass';
+                    currentFilter.frequency.value = 2000;
+                    currentFilter.Q.value = 0.5;
+                    break;
+                case 'wave':
+                    currentFilter.type = 'lowpass';
+                    currentFilter.frequency.value = 400;
+                    break;
+                case 'fire':
+                    currentFilter.type = 'highpass';
+                    currentFilter.frequency.value = 500;
+                    break;
+                default:
+                    currentFilter.type = 'lowpass';
+                    currentFilter.frequency.value = 1000;
+            }
+
+            currentFilter.connect(masterGainNode);
+
+            currentSource = createWhiteNoise();
+            currentSource.connect(currentFilter);
+            currentSource.start();
+            isPlaying = true;
+        }
+
+        function updateVolume(volume) {
+            if (masterGainNode && isPlaying) {
+                masterGainNode.gain.value = volume / 100;
+            }
+        }
+
+        function setActive(elements, activeElement) {
+            elements.forEach(el => el.classList.remove('active'));
+            activeElement.classList.add('active');
+        }
+
+        document.body.addEventListener('click', function unlockOnFirstClick() {
+            if (!isInitialized) {
+                isInitialized = true;
+                initAudio();
+                document.body.removeEventListener('click', unlockOnFirstClick);
+            }
+        }, { once: true });
+
+        const meditationItems = document.querySelectorAll('.meditation-item');
+        meditationItems.forEach(item => {
+            item.addEventListener('click', () => {
+                setActive(meditationItems, item);
+            });
+        });
+
+        const durationBtns = document.querySelectorAll('.option-btn[data-duration]');
+        durationBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setActive(durationBtns, btn);
+            });
+        });
+
+        const musicBtns = document.querySelectorAll('.music-btn');
+        const volumeSlider = document.querySelector('.volume-slider');
+        let currentMusic = 'silent';
+        let currentVolume = 70;
+
+        musicBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setActive(musicBtns, btn);
+                currentMusic = btn.dataset.music;
+                playMusic(currentMusic, currentVolume);
+            });
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            currentVolume = e.target.value;
+            updateVolume(currentVolume);
+        });
+    </script>
+</body>
+</html>
